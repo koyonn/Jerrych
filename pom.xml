@@ -1,40 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>koyonn.jerrych</groupId>
+    <groupId>edu.koyonn</groupId>
     <artifactId>Jerrych</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <name>Jerrych</name>
     <packaging>jar</packaging>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <exeFileName>Jerrych</exeFileName>
         <product.title>Jerrych</product.title>
         <product.company>Tarasenka Maksim Iharavich</product.company>
         <product.year>2022</product.year>
-        <jdkVersion>18</jdkVersion>
+        <jdkVersion>17</jdkVersion>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>18.0.1</version>
+            <version>19</version>
         </dependency>
-
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>18.0.1</version>
+            <version>19</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+       <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.19.0</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -60,14 +78,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <classpathLayoutType>simple</classpathLayoutType>
-                            <mainClass>koyonn.jerrych.MainClass</mainClass>
+                            <mainClass>edu.jerrych.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -86,16 +104,23 @@
                             <outputDirectory>target/resources/koyonn/jerrych</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>src/main/resources/koyonn/jerrych</directory>
+                                    <directory>src/main/resources/edu/jerrych</directory>
                                     <filtering>true</filtering>
                                     <includes>
-                                        <include>**/*.properties</include>
+                                        <include>**/*.ico</include>
                                     </includes>
                                 </resource>
                                 <resource>
-                                    <directory>src/main/resources/koyonn/jerrych</directory>
+                                    <directory>src/main/resources/edu/jerrych</directory>
+                                    <filtering>true</filtering>
                                     <includes>
                                         <include>**/*.png</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/resources/edu/jerrych</directory>
+                                    <includes>
+                                        <include>**/*.fxml</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -120,7 +145,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>koyonn.jerrych/koyonn.jerrych.MainClass</mainClass>
+                            <mainClass>edu.jerrych.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>
@@ -128,7 +153,7 @@
             <plugin>
                 <groupId>com.akathist.maven.plugins.launch4j</groupId>
                 <artifactId>launch4j-maven-plugin</artifactId>
-                <version>2.1.2</version>
+                <version>2.2.0</version>
                 <executions>
                     <execution>
                         <id>l4j-clui</id>
@@ -141,9 +166,9 @@
                             <outfile>target/${exeFileName}.exe</outfile>
                             <jar>target/${project.artifactId}-${project.version}.jar</jar>
                             <errTitle>${product.title}</errTitle>
-                            <icon>src/main/resources/koyonn/jerrych/sticker.ico</icon>
+                            <icon>src/main/resources/edu/jerrych/sticker.ico</icon>
                             <classPath>
-                                <mainClass>koyonn.jerrych.MainClass</mainClass>
+                                <mainClass>edu.jerrych.Main</mainClass>
                                 <addDependencies>true</addDependencies>
                                 <preCp>anything</preCp>
                             </classPath>
@@ -152,11 +177,11 @@
                                 <minVersion>${jdkVersion}.0</minVersion>
                             </jre>
                             <versionInfo>
-                                <fileVersion>1.0.0.0</fileVersion>
+                                <fileVersion>1.5.0.0</fileVersion>
                                 <txtFileVersion>1.0</txtFileVersion>
-                                <fileDescription>JavaFXDemo</fileDescription>
+                                <fileDescription>Jerrych</fileDescription>
                                 <copyright>Copyright © 2022 ${product.company}</copyright>
-                                <productVersion>1.0.0.0</productVersion>
+                                <productVersion>1.5.0.0</productVersion>
                                 <txtProductVersion>1.0</txtProductVersion>
                                 <companyName>${product.company}</companyName>
                                 <productName>${product.title}</productName>
